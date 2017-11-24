@@ -33,8 +33,6 @@ Returns dynamically allocated input read from stdin.
 
 ## Bugs
 
-- Exits when input is empty (i.e. only a newline).
-
 - Does not properly process lines with extra spaces.
 
 - Does not interpret "quoted strings" as a single token.
