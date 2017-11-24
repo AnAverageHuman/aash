@@ -8,8 +8,13 @@ void print_prompt() {
 
 int main() {
   char *input;
-  do {
-    input = get_input();
-  } while (input);
+  char *freeme;
+  char **to_run;
+  while ((input = get_input())) {
+    freeme = input;
+    to_run = tokenizer_whitespace(input);
+    free(freeme);
+    free(to_run);
+  }
 }
 
