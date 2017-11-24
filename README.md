@@ -5,6 +5,10 @@ An Average Shell
 
 ### aash.c
 
+#### `void print_prompt()`
+
+Prints a prompt to stdout.
+
 #### `int main()`
 
 The core of the shell.
