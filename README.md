@@ -1,6 +1,10 @@
 # aash
 An Average Shell
 
+## Features
+
+- Executes commands.
+
 ## Function Headers
 
 ### aash.c
@@ -8,6 +12,10 @@ An Average Shell
 #### `void print_prompt()`
 
 Prints a prompt to stdout.
+
+#### `void execute_command(char **to_run)`
+
+Forks, with the child executing a command and the parent waiting for it.
 
 #### `int main()`
 
