@@ -8,6 +8,12 @@ CFLAGS ?= -O2 -march=native -pipe
 
 all: $(executable)
 
+debug: CC=clang
+debug: CFLAGS=-g -Weverything
+debug: clean all
+	clang-tidy $(SRC)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(executable)
+
 $(executable): $(OBJ)
 	@echo "[LD] $@"
 	@$(CC) $(LDFLAGS) -o $@ $^
