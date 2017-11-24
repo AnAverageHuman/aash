@@ -15,8 +15,14 @@ char **tokenizer_whitespace(char *string) {
 
 char *get_input() {
   char *input = NULL;
-  print_prompt();
-  scanf("%m[^\n]%*c", &input);
+  while (! input) {
+    print_prompt();
+    if (scanf("%m[^\n]", &input) == EOF) {
+      return NULL;
+    }
+    scanf("%*c");
+  }
+
   return input;
 }
 
