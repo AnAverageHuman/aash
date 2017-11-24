@@ -4,6 +4,8 @@ executable := aash
 SRC := $(wildcard *.c)
 OBJ := $(addprefix $(objdir)/, $(SRC:.c=.o))
 
+CFLAGS ?= -O2 -march=native -pipe
+
 all: $(executable)
 
 $(executable): $(OBJ)
