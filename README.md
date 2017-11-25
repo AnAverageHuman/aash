@@ -4,6 +4,7 @@ An Average Shell
 ## Features
 
 - Executes commands.
+- Has the ability to change the working directory with `cd`.
 
 ## Function Headers
 
@@ -30,6 +31,12 @@ Converts a given string separated by spaces into an array of strings.
 #### `char *get_input()`
 
 Returns dynamically allocated input read from stdin.
+
+### builtin.c
+
+#### `int builtin_cd(const char *argument)`
+
+A partial implementation of the `cd` utility, as specified by POSIX.
 
 ## Bugs
 

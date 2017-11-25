@@ -26,15 +26,24 @@ int main() {
   char *input;
   char *freeme;
   char **to_run;
+  char builtin;
   while ((input = get_input())) {
     cpid = 0;
     freeme = input;
     to_run = tokenizer_whitespace(input);
-    execute_command(to_run);
+
+    if (strcmp(to_run[0], "cd")) {
+      execute_command(to_run);
+      builtin = 0;
+    } else {
+      builtin_cd(to_run[1]);
+      builtin = 1;
+    }
+
     free(freeme);
     free(to_run);
 
-    if (! cpid) {
+    if (! (cpid || builtin) ) {
       return(1);
     }
   }

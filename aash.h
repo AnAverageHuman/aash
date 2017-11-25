@@ -17,5 +17,7 @@ void execute_command(char **to_run);
 
 void print_prompt(void);
 
+void builtin_cd(const char *argument);
+
 #endif /* _AASH_H */
 
