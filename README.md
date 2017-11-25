@@ -38,6 +38,10 @@ Returns dynamically allocated input read from stdin.
 
 A partial implementation of the `cd` utility, as specified by POSIX.
 
+#### `_Noreturn void builtin_exit(const char *argument)`
+
+A partial implementation of the `exit` utility, as specified by POSIX.
+
 ### utilities.c
 
 #### `void errno_handler(int en)`
@@ -49,4 +53,10 @@ A default handler for errno that prints error messages to stderr.
 - Does not properly process lines with extra spaces.
 
 - Does not interpret "quoted strings" as a single token.
+
+- Not all *alloc'd memory is freed before exiting in `builtin_exit()`.
+This is negligible.
+
+- Exits with status 0 if EOF is read, regardless of the exit status of the last
+  command.
 

@@ -1,4 +1,3 @@
-#include <errno.h>
 #include <sys/wait.h>
 
 #include "aash.h"
@@ -30,12 +29,14 @@ int main() {
     freeme = input;
     to_run = tokenizer_whitespace(input);
 
-    if (strcmp(to_run[0], "cd")) {
-      execute_command(to_run);
-      builtin = 0;
-    } else {
+    if (! strcmp(to_run[0], "cd")) {
       builtin_cd(to_run[1]);
       builtin = 1;
+    } else if (! strcmp(to_run[0], "exit")) {
+      builtin_exit(to_run[1]);
+    } else {
+      execute_command(to_run);
+      builtin = 0;
     }
 
     free(freeme);
