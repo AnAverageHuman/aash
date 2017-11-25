@@ -15,10 +15,8 @@ void print_prompt() {
 void execute_command(char **to_run) {
   if ((cpid = fork())) {
     waitpid(cpid, &last_wstatus, 0);
-  } else {
-    execvp(to_run[0], to_run);
-    int e = errno;
-    printf("Error %d: %s\n", e, strerror(e));
+  } else if (execvp(to_run[0], to_run)) {
+    errno_handler(errno);
   }
 }
 
@@ -26,7 +24,7 @@ int main() {
   char *input;
   char *freeme;
   char **to_run;
-  char builtin;
+  char builtin = 0;
   while ((input = get_input())) {
     cpid = 0;
     freeme = input;

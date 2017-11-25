@@ -38,6 +38,12 @@ Returns dynamically allocated input read from stdin.
 
 A partial implementation of the `cd` utility, as specified by POSIX.
 
+### utilities.c
+
+#### `void errno_handler(int en)`
+
+A default handler for errno that prints error messages to stderr.
+
 ## Bugs
 
 - Does not properly process lines with extra spaces.

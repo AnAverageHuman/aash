@@ -19,5 +19,7 @@ void print_prompt(void);
 
 void builtin_cd(const char *argument);
 
+void errno_handler(int en);
+
 #endif /* _AASH_H */
 
