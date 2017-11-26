@@ -8,10 +8,15 @@ An Average Shell
 - Shows the current working directory in the prompt.
 - Shows the exit status of the last command in the prompt if it is not 0.
 - Supports color terminals.
+- Passes on the SIGINT signal to the foreground child.
 
 ## Function Headers
 
 ### aash.c
+
+#### `static void sighandler(int signo)`
+
+Passes SIGINT on to foreground child process, if one is currently running.
 
 #### `void print_prompt()`
 
