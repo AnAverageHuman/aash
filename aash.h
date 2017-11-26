@@ -22,12 +22,16 @@ extern int last_wstatus;
 char *get_input(void);
 char **tokenizer_whitespace(char *string);
 
-void execute_command(char **to_run);
-
 void print_prompt(void);
 
+char execute_command(char **to_run);
 void builtin_cd(const char *argument);
 void builtin_exit(const char *argument);
+
+struct functiontable {
+  const char *name;
+  void (*func)(const char *argument);
+};
 
 void errno_handler(int en);
 char *cwd_basename(void);

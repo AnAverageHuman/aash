@@ -3,6 +3,15 @@
 
 #include "aash.h"
 
+
+const static struct {
+  const char *name;
+  void (*func)(const char *argument);
+} functions[] = {
+  {"cd",   &builtin_cd},
+  {"exit", &builtin_exit}
+};
+
 pid_t cpid;
 int last_wstatus = 0;
 
@@ -21,12 +30,21 @@ void print_prompt() {
   fflush(stdout);
 }
 
-void execute_command(char **to_run) {
+char execute_command(char **to_run) {
+  unsigned int i;
+  for (i = 0; i < (sizeof(functions) / sizeof(functions[0])); i++) {
+    if (! strcmp(functions[i].name, to_run[0])) {
+      functions[i].func(to_run[1]);
+      return 1;
+    }
+  }
+
   if ((cpid = fork())) {
     waitpid(cpid, &last_wstatus, 0);
   } else if (execvp(to_run[0], to_run)) {
     errno_handler(errno);
   }
+  return 0;
 }
 
 int main() {
@@ -39,21 +57,13 @@ int main() {
     freeme = input;
     to_run = tokenizer_whitespace(input);
 
-    if (! strcmp(to_run[0], "cd")) {
-      builtin_cd(to_run[1]);
-      builtin = 1;
-    } else if (! strcmp(to_run[0], "exit")) {
-      builtin_exit(to_run[1]);
-    } else {
-      execute_command(to_run);
-      builtin = 0;
-    }
+    builtin = execute_command(to_run);
 
     free(freeme);
     free(to_run);
 
     if (! (cpid || builtin) ) {
-      return(1);
+      builtin_exit(NULL);
     }
   }
 }

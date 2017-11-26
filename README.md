@@ -17,9 +17,10 @@ An Average Shell
 
 Prints a prompt to stdout.
 
-#### `void execute_command(char **to_run)`
+#### `char execute_command(char **to_run)`
 
-Forks, with the child executing a command and the parent waiting for it.
+Forks, with the child executing a command and the parent waiting for it.  
+Returns 1 if the command executed is a builtin function, 0 otherwise.
 
 #### `int main()`
 
