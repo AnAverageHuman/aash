@@ -7,6 +7,14 @@
 #include <string.h>
 #include <unistd.h>
 
+#define CRED     isatty(STDOUT_FILENO) ? "\x1b[31m" : ""
+#define CGREEN   isatty(STDOUT_FILENO) ? "\x1b[32m" : ""
+#define CYELLOW  isatty(STDOUT_FILENO) ? "\x1b[33m" : ""
+#define CBLUE    isatty(STDOUT_FILENO) ? "\x1b[34m" : ""
+#define CMAGENTA isatty(STDOUT_FILENO) ? "\x1b[35m" : ""
+#define CCYAN    isatty(STDOUT_FILENO) ? "\x1b[36m" : ""
+#define CRESET   isatty(STDOUT_FILENO) ? "\x1b[0m"  : ""
+
 extern pid_t cpid;
 extern int last_wstatus;
 

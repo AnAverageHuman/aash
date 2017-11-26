@@ -8,12 +8,13 @@ int last_wstatus = 0;
 
 void print_prompt() {
   if (WIFEXITED(last_wstatus) && WEXITSTATUS(last_wstatus)) {
-    printf("%d ", WEXITSTATUS(last_wstatus)); // exit status of last command
+    // exit status of last command
+    printf("%s%d%s ", CRED, WEXITSTATUS(last_wstatus), CRESET);
   }
 
   char *cwd = NULL;
   cwd = getcwd(cwd, 0);
-  printf("%s ", basename(cwd)); // basename of cwd
+  printf("%s%s%s ", CGREEN, basename(cwd), CRESET); // basename of cwd
   free(cwd);
 
   printf("%s ", "$"); // the actual prompt
