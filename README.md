@@ -5,6 +5,7 @@ An Average Shell
 
 - Executes commands.
 - Has the ability to change the working directory with `cd`.
+- Shows the current working directory in the prompt.
 
 ## Function Headers
 
