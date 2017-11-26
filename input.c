@@ -1,13 +1,17 @@
 #include "aash.h"
 
-#define SPACE " "
+#define SPACE " \t"
 
 char **tokenizer_whitespace(char *string) {
   unsigned long a = 1;
   char **tokens = malloc(sizeof(char *));
+  char *tmpbuffer = NULL;
   while (string) {
-    tokens[a - 1] = strsep(&string, SPACE);
-    tokens = (char **) realloc(tokens, sizeof(char *) * ++a);
+    tmpbuffer = strsep(&string, SPACE);
+    if (strlen(tmpbuffer)) {
+      tokens[a - 1] = tmpbuffer;
+      tokens = (char **) realloc(tokens, sizeof(char *) * ++a);
+    }
   }
   tokens[a - 1] = (char *) NULL;
   return tokens;
