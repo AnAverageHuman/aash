@@ -54,8 +54,6 @@ A default handler for errno that prints error messages to stderr.
 
 ## Bugs
 
-- Does not properly process lines with extra spaces.
-
 - Does not interpret "quoted strings" as a single token.
 
 - Not all *alloc'd memory is freed before exiting in `builtin_exit()`.
