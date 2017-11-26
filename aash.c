@@ -1,4 +1,5 @@
 #include <libgen.h>
+#include <signal.h>
 #include <sys/wait.h>
 
 #include "aash.h"
@@ -14,6 +15,12 @@ const static struct {
 
 pid_t cpid;
 int last_wstatus = 0;
+
+static void sighandler(int signo) {
+  if (signo == SIGINT && cpid) {
+    kill(cpid, SIGINT);
+  }
+}
 
 void print_prompt() {
   if (WIFEXITED(last_wstatus) && WEXITSTATUS(last_wstatus)) {
@@ -48,6 +55,8 @@ char execute_command(char **to_run) {
 }
 
 int main() {
+  signal(SIGINT, sighandler);
+
   char *input;
   char *freeme;
   char **to_run;
