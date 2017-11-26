@@ -1,3 +1,4 @@
+#include <libgen.h>
 #include <sys/wait.h>
 
 #include "aash.h"
@@ -6,8 +7,12 @@ pid_t cpid;
 int last_wstatus = 0;
 
 void print_prompt() {
-  char *prompt = "$ ";
-  printf("%s", prompt);
+  char *cwd = NULL;
+  cwd = getcwd(cwd, 0);
+  printf("%s ", basename(cwd)); // basename of cwd
+  free(cwd);
+
+  printf("%s ", "$"); // the actual prompt
   fflush(stdout);
 }
 

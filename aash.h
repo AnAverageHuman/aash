@@ -22,6 +22,7 @@ void builtin_cd(const char *argument);
 void builtin_exit(const char *argument);
 
 void errno_handler(int en);
+char *cwd_basename(void);
 
 #endif /* _AASH_H */
 
