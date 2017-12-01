@@ -59,17 +59,17 @@ int main() {
 
   char *input;
   char *freeme;
-  char **to_run;
+  struct array to_run;
   char builtin = 0;
   while ((input = get_input())) {
     cpid = 0;
     freeme = input;
     to_run = tokenizer_whitespace(input);
 
-    builtin = execute_command(to_run);
+    builtin = execute_command(to_run.items);
 
     free(freeme);
-    free(to_run);
+    free(to_run.items);
 
     if (! (cpid || builtin) ) {
       builtin_exit(NULL);

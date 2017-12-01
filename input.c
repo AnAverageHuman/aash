@@ -2,19 +2,22 @@
 
 #define SPACE " \t"
 
-char **tokenizer_whitespace(char *string) {
-  unsigned long a = 1;
-  char **tokens = malloc(sizeof(char *));
+struct array tokenizer(char *string, const char *delim) {
+  struct array ret = {malloc(sizeof(char *)), 1};
   char *tmpbuffer = NULL;
   while (string) {
-    tmpbuffer = strsep(&string, SPACE);
+    tmpbuffer = strsep(&string, delim);
     if (strlen(tmpbuffer)) {
-      tokens[a - 1] = tmpbuffer;
-      tokens = (char **) realloc(tokens, sizeof(char *) * ++a);
+      ret.items[ret.numitems - 1] = tmpbuffer;
+      ret.items = (char **) realloc(ret.items, sizeof(char *) * ++ret.numitems);
     }
   }
-  tokens[a - 1] = (char *) NULL;
-  return tokens;
+  ret.items[ret.numitems - 1] = (char *) NULL;
+  return ret;
+}
+
+struct array tokenizer_whitespace(char *string) {
+  return tokenizer(string, SPACE);
 }
 
 char *get_input() {

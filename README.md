@@ -33,7 +33,11 @@ The core of the shell.
 
 ### input.c
 
-#### `char **tokenizer_whitespace(char *string)`
+#### `struct array tokenizer(char *string, const char *delim)`
+
+Converts a string delimited by specific characters to a character array.
+
+#### `struct array tokenizer_whitespace(char *string)`
 
 Converts a given string separated by spaces into an array of strings.
 
