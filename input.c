@@ -20,6 +20,10 @@ struct array tokenizer_whitespace(char *string) {
   return tokenizer(string, SPACE);
 }
 
+struct array tokenizer_semicolon(char *string) {
+  return tokenizer(string, ";");
+}
+
 char *get_input() {
   char *input = NULL;
   while (! input) {

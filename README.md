@@ -9,6 +9,7 @@ An Average Shell
 - Shows the exit status of the last command in the prompt if it is not 0.
 - Supports color terminals.
 - Passes on the SIGINT signal to the foreground child.
+- Supports multiple commands on one line separated with `;`.
 
 ## Function Headers
 
@@ -40,6 +41,10 @@ Converts a string delimited by specific characters to a character array.
 #### `struct array tokenizer_whitespace(char *string)`
 
 Converts a given string separated by spaces into an array of strings.
+
+#### `struct array tokenizer_semicolon(char *string)`
+
+Converts a given string separated by semicolons into an array of strings.
 
 #### `char *get_input()`
 
