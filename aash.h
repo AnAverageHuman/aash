@@ -26,6 +26,7 @@ struct array {
 char *get_input(void);
 struct array tokenizer(char *string, const char *delim);
 struct array tokenizer_whitespace(char *string);
+struct array tokenizer_semicolon(char *string);
 
 void print_prompt(void);
 
