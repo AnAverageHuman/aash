@@ -62,6 +62,7 @@ int main() {
   char *freeme;
   struct array to_run;
   struct array command;
+  struct fd fds = {STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO};
   char builtin = 0;
   while ((input = get_input())) {
     cpid = 0;
@@ -69,6 +70,7 @@ int main() {
 
     to_run = tokenizer_semicolon(input);
     for (i = 0; i < to_run.numitems - 1; i++) {
+      process_redirects(&to_run.items[i], &fds);
       command = tokenizer_whitespace(to_run.items[i]);
       if (command.items[0]) {
         builtin = execute_command(command.items);
@@ -76,6 +78,7 @@ int main() {
           builtin_exit(NULL);
         }
       }
+      reset_redirects(&fds);
       free(command.items);
     }
 

@@ -10,6 +10,9 @@ An Average Shell
 - Supports color terminals.
 - Passes on the SIGINT signal to the foreground child.
 - Supports multiple commands on one line separated with `;`.
+- Allows redirecting stdout and stderr using `>`, `2>`, `&>`, and their
+  appending counterparts.
+- Allows redirecting stdin using `<`.
 
 ## Function Headers
 
@@ -65,6 +68,35 @@ A partial implementation of the `exit` utility, as specified by POSIX.
 #### `void errno_handler(int en)`
 
 A default handler for errno that prints error messages to stderr.
+
+### redirection.c
+
+#### `struct redir_stats get_redir_stats(char **command, char *redirection)`
+
+Given the string to work with and a redirection token to look for, it "cuts" the
+filename out, returning that and a flag representing if we are appending to a
+file.
+
+#### `int redirect_stdin(struct redir_stats r, struct fd *fds)`
+
+Processes redirection for stdin, returning the new file descriptor.
+
+#### `int redirect_stdout(struct redir_stats r, struct fd *fds)`
+
+Processes redirection for stdout, returning the new file descriptor.
+
+#### `int redirect_stderr(struct redir_stats r, struct fd *fds)`
+
+Processes redirection for stderr, returning the new file descriptor.
+
+#### `void process_redirects(char **command, struct fd *fds)`
+
+Handles redirection by calling the proper helper function(s).
+
+#### `void reset_redirects(struct fd *fds)`
+
+Resets redirection to the default behavior (i.e., the state of streams before
+redirections were processed).
 
 ## Bugs
 
