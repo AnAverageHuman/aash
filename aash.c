@@ -70,7 +70,9 @@ int main() {
 
     to_run = tokenizer_semicolon(input);
     for (i = 0; i < to_run.numitems - 1; i++) {
-      process_redirects(&to_run.items[i], &fds);
+      if (process_redirects(&to_run.items[i], &fds)) {
+        
+      }
       command = tokenizer_whitespace(to_run.items[i]);
       if (command.items[0]) {
         builtin = execute_command(command.items);

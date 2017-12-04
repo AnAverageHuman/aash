@@ -51,6 +51,8 @@ int redirect_stderr(struct redir_stats r, struct fd *fds) {
 
 void process_redirects(char **command, struct fd *fds) {
   struct redir_stats r;
+  char *pip;
+  char *out;
   if (strstr(*command, "&>")) {
     r = get_redir_stats(command, "&>");
     redirect_stdout(r, fds);
@@ -61,15 +63,20 @@ void process_redirects(char **command, struct fd *fds) {
       redirect_stderr(r, fds);
     }
 
-    if (strstr(*command, ">")) {
+    if (strstr(*command, "<")) {
+      r = get_redir_stats(command, "<");
+      redirect_stdin(r, fds);
+    }
+
+    pip = strstr(*command, ">");
+    out = strstr(*command, "|");
+
+    if (pip - *command > out - *command) {
+      dup2(fileno(popen(*command, "r")), STDIN_FILENO);
+    } else if (out) {
       r = get_redir_stats(command, ">");
       redirect_stdout(r, fds);
     }
-  }
-
-  if (strstr(*command, "<")) {
-    r = get_redir_stats(command, "<");
-    redirect_stdin(r, fds);
   }
 }
 

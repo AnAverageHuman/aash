@@ -51,6 +51,7 @@ struct redir_stats get_redir_stats(char **command, char *redirection);
 int redirect_stdin(struct redir_stats r, struct fd *fds);
 int redirect_stdout(struct redir_stats r, struct fd *fds);
 int redirect_stderr(struct redir_stats r, struct fd *fds);
+int redirect_pipe(char **command);
 void process_redirects(char **command, struct fd *fds);
 void reset_redirects(struct fd *fds);
 
