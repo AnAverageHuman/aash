@@ -1,7 +1,5 @@
 #include "aash.h"
 
-#define SPACE " \t"
-
 struct array tokenizer(char *string, const char *delim) {
   struct array ret = {malloc(sizeof(char *)), 1};
   char *tmpbuffer = NULL;

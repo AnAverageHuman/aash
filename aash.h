@@ -15,12 +15,25 @@
 #define CCYAN    isatty(STDOUT_FILENO) ? "\x1b[36m" : ""
 #define CRESET   isatty(STDOUT_FILENO) ? "\x1b[0m"  : ""
 
+#define SPACE " \t"
+
 extern pid_t cpid;
 extern int last_wstatus;
 
 struct array {
   char **items;
   unsigned long numitems;
+};
+
+struct fd {
+  int stdin;
+  int stdout;
+  int stderr;
+};
+
+struct redir_stats {
+  char *filename;
+  char append;
 };
 
 char *get_input(void);
@@ -34,6 +47,12 @@ char execute_command(char **to_run);
 void builtin_cd(const char *argument);
 void builtin_exit(const char *argument);
 
+struct redir_stats get_redir_stats(char **command, char *redirection);
+int redirect_stdin(struct redir_stats r, struct fd *fds);
+int redirect_stdout(struct redir_stats r, struct fd *fds);
+int redirect_stderr(struct redir_stats r, struct fd *fds);
+void process_redirects(char **command, struct fd *fds);
+void reset_redirects(struct fd *fds);
 
 void errno_handler(int en);
 char *cwd_basename(void);
