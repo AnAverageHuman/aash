@@ -25,7 +25,9 @@ struct array tokenizer_semicolon(char *string) {
 char *get_input() {
   char *input = NULL;
   while (! input) {
-    print_prompt();
+    if (isatty(STDIN_FILENO)) {
+      print_prompt();
+    }
     if (scanf("%m[^\n]", &input) == EOF) {
       return NULL;
     }

@@ -24,7 +24,7 @@ Passes SIGINT on to foreground child process, if one is currently running.
 
 #### `void print_prompt()`
 
-Prints a prompt to stdout.
+Prints a prompt to stdout if we are running interactively.
 
 #### `char execute_command(char **to_run)`
 
